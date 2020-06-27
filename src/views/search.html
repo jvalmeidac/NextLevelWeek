@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-search-results" %}
+
+{% block title %}
+  <title>Resultados</title>
+{% endblock title %}
+{% block styles %}
+  <link href="/styles/search-results.css" rel="stylesheet"/>
+{% endblock styles %}
+{% block content %}
+  {%include "partials/page-header.html"%}
+  <main>
+    {% if total > 0 %}
+      <h4>
+        <strong>{{total}}
+          pontos</strong>
+        encontrados
+      </h4>
+
+      <div class="cards">
+
+        {% for place in places %}
+          <div class="card">
+            <img src="/images/{{place.image}}" alt="{{place.name}}">
+            <h1>{{place.name}}</h1>
+            <h3>
+              {{ place.items }}
+            </h3>
+            <p>
+              {{place.city}},
+              {{place.state}}
+              <br/>
+              {{place.address}},
+              {{place.district}}
+              <br/>
+              {% if place.number == 0 %}
+                SN
+                {%else%}
+                Nº
+                {{place.number}}
+              {% endif %}
+              <br/>
+              {{place.complement}}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+      {%else%}
+      <h4>
+        <strong>Nenhum</strong> ponto encontrado
+      </h4>
+    {% endif %}
+
+  </main>
+{% endblock content %}
